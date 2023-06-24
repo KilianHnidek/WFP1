@@ -1,0 +1,28 @@
+<div>
+    <h2>Analysis</h2>
+    <h4>Here you can get your results of the scraping and analysis</h4>
+    <section class="horiz">
+        <p>
+            Press this button to download the scraped data as an excel file:
+        </p>
+        <button (click)="download()">Get Results!</button>
+    </section>
+    <section class="horiz">
+        <p>
+            Or get your graphs here:
+        </p>
+        <button (click)="analysis()">Start Analysis</button>
+    </section>
+    <section class="figure-container">
+        <h4>Figures:</h4>
+        <div class="image-slider-container">
+            <div class="image-slider-wrapper" #slider>
+              <div class="image-slide" *ngFor="let figure of figures" [innerHTML]="figure"></div>
+            </div>
+            <div class="image-slider-nav">
+              <button class="prev-button" >Previous</button>
+              <button class="next-button" >Next</button>
+            </div>
+        </div>
+    </section>
+</div>

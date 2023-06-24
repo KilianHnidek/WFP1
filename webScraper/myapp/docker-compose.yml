@@ -1,0 +1,123 @@
+version: '3.9'
+services:
+  proxy:
+    container_name: proxy
+    image: proxy:latest
+    ports:
+      - "80:80"
+    restart: on-failure
+
+  management:
+    container_name: management
+    image: management:latest
+    volumes:
+      - ./management.py:/webScraper/management
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "2000:2000"
+    restart: on-failure
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:2000" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  scraper:
+    container_name: scraper
+    image: scraper:latest
+    volumes:
+      - type: bind
+        source: ../scraper
+        target: /webScraper/scraper
+    ports:
+      - "8080:8080"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=scraperdb
+    restart: "no"
+
+  frontend:
+    container_name: frontend
+    image: frontend:latest
+    ports:
+      - "4200:4200"
+    volumes:
+      - type: bind
+        source: ../website/frontend
+        target: /webScraper/website/frontend
+    working_dir: /frontend
+    restart: "no"
+
+  backend:
+    container_name: backend
+    image: backend:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      - type: bind
+        source: ../website/backend
+        target: /webScraper/website/backend
+    working_dir: /backend
+    restart: "no"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  db:
+    container_name: db
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=scraperdb
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  predictor:
+    container_name: predictor
+    image: predictor:latest
+    volumes:
+      - type: bind
+        source: ../predictor
+        target: /webScraper/predictor
+    ports:
+      - "7000:7000"
+    restart: "no"
+
+  prometheus:
+    image: prom/prometheus:v2.20.1
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    restart: on-failure
+
+  grafana:
+    image: grafana/grafana:7.1.5
+    volumes:
+      - grafana-volume:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: on-failure
+
+
+volumes:
+  db-data:
+  grafana-volume:
+

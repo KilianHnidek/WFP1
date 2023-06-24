@@ -1,0 +1,21 @@
+<body>
+  <header>
+    <img src="assets/rentalradarlogo.png" style="width: 300px;" alt="Rental Radar Logo">
+    <nav class="navbar">
+      <ul class="navlinklist">
+        <li class="nav-link" routerLink="/" routerLinkActive="active">Home</li>
+        <li class="nav-link" routerLink="/scrape" routerLinkActive="active">Scrape</li>
+        <li class="nav-link" routerLink="/analysis" routerLinkActive="active">Analysis</li>
+        <li class="nav-link" routerLink="/about" routerLinkActive="active">About</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer>
+    &copy; 2023 Rental Radar
+  </footer>
+</body>

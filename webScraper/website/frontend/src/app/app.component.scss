@@ -1,0 +1,93 @@
+body {
+    height: 100hv;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+
+header {
+    padding: 10px; /* Add some padding to the top and bottom */
+    position: fixed; /* Make the header fixed */
+    top: 0; /* Position it at the top of the screen */
+    left: 0; 
+    width: 100%; 
+    max-width: 100%; 
+    z-index: 999; 
+    height: 100px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    position: fixed;
+    left: 0;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    padding: 20px;
+    width: 100%;
+
+}
+.navbar {
+
+        .navlinklist {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: auto;
+        margin: 0;
+        padding: 1rem;
+        list-style: none;
+    }
+
+    .navbar-brand {
+        &:hover {
+            color: #fff;
+        }
+    }
+    .nav-link {
+        padding: 0 1rem;
+        &:hover {
+            color: #f50000;
+        }
+    }
+}
+
+footer {
+    background-color: #404040;
+    position: fixed;
+    width: 97%;
+    max-width: 100%;
+    left: 0;
+    bottom: 0;
+    padding: 1rem;
+    .footerlinklist {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .footer-brand {
+        color: #fff;
+        &:hover {
+            color: #fff;
+        }
+    }
+    .footer-link {
+        color: #fff;
+        &:hover {
+            color: #f50000;
+        }
+    }
+}

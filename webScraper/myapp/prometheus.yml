@@ -1,0 +1,28 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'backend'
+    metrics_path: '/backend/metrics'
+    static_configs:
+      - targets: ['proxy:80']
+
+  - job_name: 'scraper'
+    metrics_path: '/scraper/metrics'
+    static_configs:
+      - targets: ['proxy:80']
+
+  - job_name: 'predictor'
+    metrics_path: '/predictor/metrics'
+    static_configs:
+      - targets: ['proxy:80']
+
+  - job_name: 'management'
+    metrics_path: '/management/metrics'
+    static_configs:
+      - targets: ['proxy:80']

@@ -1,0 +1,8 @@
+{
+  "*": {
+    "target": "http://proxy:80",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
